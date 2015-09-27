@@ -12,7 +12,7 @@ setwd(file.path(dirBase, dirWorking))
 rm(list = ls())
 gc(reset = TRUE)
 
-# harfiles <- unzip("./getdata_projectfiles_UCI HAR Dataset.zip")
+harfiles <- unzip("./getdata_projectfiles_UCI HAR Dataset.zip")
 # numfiles <- length(harfiles)
 
 ###################################################################
@@ -56,6 +56,7 @@ hardata01 <- hardata00[, c(features[featureIdxLs], "activity", "subject")]
 #############################################################################
 ## 3. Uses descriptive activity names to name the activities in the data set.
 #############################################################################
+library(dplyr)
 activityLabels <- read.table("./UCI HAR Dataset/activity_labels.txt")
 hardata01 <- rename(hardata01, act = activity) %>%
     mutate(activity = sapply(act, function(x,y) { x = y[x] }, y = activityLabels[,2] )) %>%
